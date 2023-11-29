@@ -1,36 +1,34 @@
 #include "main.h"
 
-char *_strtok(char *str, const char *delim __attribute__((unused)))
-{
-	char *token = strtok(str, " ");
-	delim = "";
-	
-	while (token != NULL)
-	{
-		strtok(NULL, " ");
-		token++;
-	}
-	return (token);
-}
-
 int main(int ac __attribute__((unused)), char **av)
 {
-	char *buffer = NULL;
-	char *cmdBuffer = NULL;
-	size_t *bufferSize = 0;
-	
-	cmdBuffer = malloc(1024 * sizeof(char));
+	char *buffer, *path = NULL;
+	size_t *bufferSize = NULL;
+	int value;
+
 	bufferSize = malloc(sizeof(size_t));
 
-	if (bufferSize == NULL)
-		free(bufferSize);
-
+	while (*environ != NULL)
+	{
+		if (strncmp(*environ, "PATH=", 5) == 0)
+		{
+			path = *environ + 5;
+		}
+		environ++;
+	}
+	printf("Path: %s", path);
+	
 	while (1)
 	{
 		printf("$ ");
-		getline(&buffer, bufferSize, stdin);
-		sprintf(cmdBuffer, "which %s", buffer);
-		system(cmdBuffer);
+		value = getline(&buffer, bufferSize, stdin);
+		if (value == -1)
+			printf("error");
+		if (strcmp(buffer, "exit\n") == 0)
+		{
+			free(buffer);
+			exit(1);
+		}
 		while (*av != NULL)
 		{
 			printf("%s\n", *av);
