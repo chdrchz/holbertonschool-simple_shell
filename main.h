@@ -11,6 +11,6 @@
 extern char **environ;
 
 int main(int ac __attribute__((unused)), char **av);
-char *_strtok(char *str, const char *delim);
+char *strtok(char *string, const char *delimiter);
 
 #endif

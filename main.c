@@ -2,11 +2,13 @@
 
 int main(int ac __attribute__((unused)), char **av)
 {
-	char *buffer, *path = NULL;
+	char *buffer, *path, *token_array = NULL;
 	size_t *bufferSize = NULL;
 	int value;
-
+	
 	bufferSize = malloc(sizeof(size_t));
+	if (bufferSize == NULL)
+		return (1);
 
 	while (*environ != NULL)
 	{
@@ -16,7 +18,6 @@ int main(int ac __attribute__((unused)), char **av)
 		}
 		environ++;
 	}
-	printf("Path: %s", path);
 	
 	while (1)
 	{
@@ -31,9 +32,13 @@ int main(int ac __attribute__((unused)), char **av)
 		}
 		while (*av != NULL)
 		{
-			printf("%s\n", *av);
 			av++;
 		}
+
+		token_array = strtok(path, ":");
+
+		while (token_array != NULL)
+			printf("%s", token_array);
 	}
 	return (0);
 }
