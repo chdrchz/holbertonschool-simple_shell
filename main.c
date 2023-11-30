@@ -5,7 +5,7 @@ int main(int ac, char **av)
 	char *input, *tokenStr, *token = NULL;
 	size_t *bufferSize = 0;
 	char *prompt = "$ ";
-	int numToken = 0, count = 0, i = 0;
+	int numToken = 0, count = 0;
 	ssize_t storedInput = 0;
 	(void)ac;
 	tokenStr = malloc(sizeof(char) * storedInput);
@@ -46,13 +46,67 @@ int main(int ac, char **av)
 			strcpy(av[count], token);
 			token = strtok(NULL, " ");
 		}
-		/* loop for testing purposes only */
-		for (i = 0; i < numToken - 1; i++)
-			printf("%s", av[count]);
 		av[count] = NULL;
+		execute(av);
 		free(tokenStr);
 		free(bufferSize);
 		free(av);
 	}
 	return (0);
+}
+
+void execute(char **av)
+{
+	char *command = NULL, *realCmd = NULL;
+
+	if (av)
+	{
+		command = av[0];
+		realCmd = get_path(command);
+		if (execve(realCmd, av, NULL) == -1)
+		{
+			perror("NICE TRY");
+		}
+	}
+}
+
+char *get_path(char *command)
+{
+	char *path, *pathCopy, *token, *filePath;
+	int cmdLen = 0, dirLen = 0;
+	struct stat Buffer;
+
+	if (strcmp(*environ, "PATH=") == 0)
+		path = strdup(*environ + 5);
+	if (path)
+	{
+		pathCopy = strdup(path);
+		cmdLen = strlen(command);
+		token = strtok(pathCopy, ":");
+		while (token != NULL)
+		{
+			dirLen = strlen(token);
+			filePath = malloc(cmdLen + dirLen + 2);
+			strcpy(filePath, token);
+			strcat(filePath, "/");
+			strcat(filePath, command);
+			strcat(filePath, "\0");
+			if (stat(filePath, &Buffer) == 0)
+			{
+				free(pathCopy);
+				return (filePath);
+			}
+			else
+			{
+				free(filePath);
+				token = strtok(NULL, ":");
+			}
+		}
+		free(pathCopy);
+		free(path);
+		if (stat(command, &Buffer) == 0)
+			return (command);
+		return (NULL);
+	}
+	return (NULL);
 }
