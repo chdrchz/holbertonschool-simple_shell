@@ -2,15 +2,16 @@
 
 int main(int ac, char **av)
 {
-	char *input, *tokenStr, *token = NULL;
+	char *input = NULL, *tokenStr = NULL, *token = NULL;
 	size_t *bufferSize = 0;
 	char *prompt = "$ ";
 	int numToken = 0, count = 0;
 	ssize_t storedInput = 0;
+	av = NULL;
 	(void)ac;
 	tokenStr = malloc(sizeof(char) * storedInput);
 	bufferSize = malloc(sizeof(size_t));
-	av = malloc(sizeof(char) * numToken);
+	av = malloc(sizeof(char *) * numToken);
 	if (bufferSize == NULL)
 	{
 		free(bufferSize);
@@ -18,7 +19,6 @@ int main(int ac, char **av)
 	}
 	if (tokenStr == NULL)
 	{
-		free(tokenStr);
 		return (-1);
 	}
 	while (1)
@@ -48,11 +48,10 @@ int main(int ac, char **av)
 		}
 		av[count] = NULL;
 		execute(av);
-		free(tokenStr);
-		free(bufferSize);
-		free(av);
 	}
-  return (0);
+	free(tokenStr);
+	free(bufferSize);
+	return (0);
 }
 
 void execute(char **av)
@@ -62,7 +61,7 @@ void execute(char **av)
 	if (av)
 	{
 		command = av[0];
-		realCmd = get_path(command);
+		realCmd = get_cmd(command);
 		if (execve(realCmd, av, NULL) == -1)
 		{
 			perror("NICE TRY");
@@ -70,7 +69,7 @@ void execute(char **av)
 	}
 }
 
-char *get_path(char *command)
+char *get_cmd(char *command)
 {
 	char *path, *pathCopy, *token, *filePath;
 	int cmdLen = 0, dirLen = 0;
