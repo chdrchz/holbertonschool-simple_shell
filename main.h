@@ -11,15 +11,10 @@
 
 extern char **environ;
 
-extern char **environ;
-
-int main(int ac __attribute__((unused)), char **av);
-<<<<<<< HEAD
+int main(int ac, char **av);
 char *_strtok(char *str, const char *delim);
 void execute(char **av);
-char *get_path(char *command);
-=======
+char *get_cmd(char *command);
 char *get_location(char *command);
->>>>>>> 0705873d95e4f9445c1615ce68c158d89834b9c3
 
 #endif
