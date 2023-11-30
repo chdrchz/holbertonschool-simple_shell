@@ -9,7 +9,7 @@ int main(int ac, char **av)
 	ssize_t storedInput = 0;
 	av = NULL;
 	(void)ac;
-	tokenStr = malloc(sizeof(char) * storedInput);
+	tokenStr = malloc(sizeof(char *) * storedInput);
 	bufferSize = malloc(sizeof(size_t));
 	av = malloc(sizeof(char *) * numToken);
 	if (bufferSize == NULL)
@@ -19,8 +19,16 @@ int main(int ac, char **av)
 	}
 	if (tokenStr == NULL)
 	{
+		free(tokenStr);
 		return (-1);
 	}
+	if (bufferSize != NULL)
+	{
+		storedInput = getline(&input, bufferSize, stdin);
+	}
+	if (tokenStr != NULL)
+	{
+		free(tokenStr);
 	while (1)
 	{
 		printf("%s", prompt);
@@ -71,12 +79,18 @@ void execute(char **av)
 
 char *get_cmd(char *command)
 {
-	char *path, *pathCopy, *token, *filePath;
-	int cmdLen = 0, dirLen = 0;
+	char *path = NULL, *pathCopy = NULL, *token = NULL, *filePath = NULL, **env = NULL;
+	int cmdLen, dirLen;
 	struct stat Buffer;
 
-	if (strcmp(*environ, "PATH=") == 0)
-		path = strdup(*environ + 5);
+	for (*env = *environ; *env != NULL; env++)
+	{
+		if (strcmp(*environ, "PATH=") == 0)
+		{
+			path = strdup(*environ + 5);
+			break;
+		}
+	}
 	if (path)
 	{
 		pathCopy = strdup(path);
