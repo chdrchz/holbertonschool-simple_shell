@@ -2,37 +2,24 @@
 
 int main(int ac, char **av)
 {
-	char *input = NULL, *tokenStr = NULL, *token = NULL;
+	char *input = NULL, tokenStr[32], *token = NULL;
 	size_t *bufferSize = 0;
 	char *prompt = "$ ";
 	int numToken = 0, count = 0;
 	ssize_t storedInput = 0;
-	av = NULL;
+	*av = av[100];
 	(void)ac;
-	tokenStr = malloc(sizeof(char *) * storedInput);
 	bufferSize = malloc(sizeof(size_t));
-	av = malloc(sizeof(char *) * numToken);
 	if (bufferSize == NULL)
 	{
 		free(bufferSize);
 		return (-1);
 	}
-	if (tokenStr == NULL)
-	{
-		free(tokenStr);
-		return (-1);
-	}
-	if (bufferSize != NULL)
-	{
-		storedInput = getline(&input, bufferSize, stdin);
-	}
-	if (tokenStr != NULL)
-	{
-		free(tokenStr);
 	while (1)
 	{
 		printf("%s", prompt);
-		storedInput = getline(&input, bufferSize, stdin);
+		if (bufferSize != NULL)
+			storedInput = getline(&input, bufferSize, stdin);
 		if (storedInput == -1)
 		{
 			printf("Thanks for stopping by...\n");
@@ -49,77 +36,13 @@ int main(int ac, char **av)
 		token = strtok(tokenStr, " ");
 		while (token != NULL)
 		{
-			count++;
-			av[count] = malloc(sizeof(char) * strlen(token));
-			strcpy(av[count], token);
+			av[count] = token;
 			token = strtok(NULL, " ");
+			count++;
 		}
-		av[count] = NULL;
 		execute(av);
 	}
-	free(tokenStr);
+	free(av[count]);
 	free(bufferSize);
 	return (0);
-}
-
-void execute(char **av)
-{
-	char *command = NULL, *realCmd = NULL;
-
-	if (av)
-	{
-		command = av[0];
-		realCmd = get_cmd(command);
-		if (execve(realCmd, av, NULL) == -1)
-		{
-			perror("NICE TRY");
-		}
-	}
-}
-
-char *get_cmd(char *command)
-{
-	char *path = NULL, *pathCopy = NULL, *token = NULL, *filePath = NULL, **env = NULL;
-	int cmdLen, dirLen;
-	struct stat Buffer;
-
-	for (*env = *environ; *env != NULL; env++)
-	{
-		if (strcmp(*environ, "PATH=") == 0)
-		{
-			path = strdup(*environ + 5);
-			break;
-		}
-	}
-	if (path)
-	{
-		pathCopy = strdup(path);
-		cmdLen = strlen(command);
-		token = strtok(pathCopy, ":");
-		while (token != NULL)
-		{
-			dirLen = strlen(token);
-			filePath = malloc(cmdLen + dirLen + 2);
-			strcpy(filePath, token);
-			strcat(filePath, "/");
-			strcat(filePath, command);
-			strcat(filePath, "\0");
-			if (stat(filePath, &Buffer) == 0)
-			{
-				free(pathCopy);
-				return (filePath);
-			}
-			else
-			{
-				free(filePath);
-				token = strtok(NULL, ":");
-			}
-		}
-		free(pathCopy);
-		free(path);
-		if (stat(command, &Buffer) == 0)
-			return (command);
-		return (NULL);
-	}
-	return (NULL);
 }
