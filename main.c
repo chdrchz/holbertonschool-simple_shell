@@ -13,7 +13,6 @@ int main(int ac, char **av)
 	{
 		return (-1);
 	}
-	av = malloc(sizeof(char *) * 100);
 	if (av == NULL)
 	{
 		return (-1);
@@ -30,6 +29,10 @@ int main(int ac, char **av)
 		}
 		strcpy(tokenStr, input);
 		token = strtok(tokenStr, " ");
+		if (av == NULL)
+		{
+			return (-1);
+		}
 		while (token != NULL)
 		{
 			numToken++;
@@ -37,9 +40,14 @@ int main(int ac, char **av)
 		}
 		numToken++;
 		token = strtok(tokenStr, " ");
+		av = malloc(numToken * sizeof(char*));
+		if (av == NULL)
+			return (-1);
 		while (token != NULL)
 		{
-			av[count] = token;
+			av[count] = strdup(token);
+			if (av[count] == NULL)
+				return (-1);
 			token = strtok(NULL, " ");
 			count++;
 		}

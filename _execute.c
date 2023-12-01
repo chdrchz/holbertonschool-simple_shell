@@ -10,7 +10,7 @@ void execute(char **av)
         {
                 command = av[0];
                 realCmd = get_cmd(command);
-		printf("%s", command)
+		printf("%s", realCmd);
 		pid = fork();
 		if (pid == 0)
 		{
