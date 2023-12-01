@@ -7,12 +7,15 @@ int main(int ac, char **av)
 	char *prompt = "$ ";
 	int numToken = 0, count = 0;
 	ssize_t storedInput = 0;
-	*av = av[100];
 	(void)ac;
 	bufferSize = malloc(sizeof(size_t));
 	if (bufferSize == NULL)
 	{
-		free(bufferSize);
+		return (-1);
+	}
+	av = malloc(sizeof(char *) * 100);
+	if (av == NULL)
+	{
 		return (-1);
 	}
 	while (1)
@@ -42,7 +45,7 @@ int main(int ac, char **av)
 		}
 		execute(av);
 	}
-	free(av[count]);
+	free(av);
 	free(bufferSize);
 	return (0);
 }
