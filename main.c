@@ -3,8 +3,8 @@
 int main(int argc, char **argv)
 {
 	char *path = NULL, *input = NULL, *pathCopy = NULL, *token = NULL;
-	char *tokenPath[20], *tokenArray[20];
-	size_t bufferSize;
+	char *tokenPath[20], *tokenArray[20], *concatArray[20] = NULL;
+	size_t bufferSize, concatLen = 0;
 	int counter = 0, counter2 = 0;
 	int i = 0, j = 0;
 	
@@ -26,6 +26,7 @@ int main(int argc, char **argv)
 			write(STDOUT_FILENO, "Shell $ ", 8);
 		if (getline(&input, &bufferSize, stdin) == -1)
 		{
+			printf("\n");
 			free(input);
 			free(pathCopy);
 			exit(EXIT_SUCCESS);
@@ -46,8 +47,14 @@ int main(int argc, char **argv)
 			token = strtok(NULL, " ");
 			counter2++;
 		}
-		printf("tokenArray: %s\n", tokenArray[0]);
-		printf("tokenPath: %s\n", tokenPath[0]);
+		concatLen = strlen(tokenArray[0] + 1 + strlen(concatArray[0] + 1));
+		concatArray[0] = malloc(concatLen);
+		strcpy(concatArray[0], tokenPath[0]);
+		strcat(concatArray[0], "/");
+		strcat(concatArray[0], tokenArray[0]);
+		printf("concatArray: %s\n", concatArray[0]);
+		/* printf("tokenArray: %s\n", tokenArray[0]);
+		printf("tokenPath: %s\n", tokenPath[0]); */
 		if (access(tokenPath[0], X_OK) == 0)
 		{
 			printf("This is working\n");
@@ -66,6 +73,7 @@ int main(int argc, char **argv)
             		/* printf("%s\n", tokenPath[j]); */
             		free(tokenPath[j]);
         	}
+		free(concatArray[0]);
 	}
 	free(path);
 	return (0);
