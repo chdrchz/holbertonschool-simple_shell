@@ -45,20 +45,18 @@ int main(int argc, char **argv)
 		{
 			tokenArray[counter2] = strdup(token);
 			token = strtok(NULL, " ");
+			/* printf("Input: %s\n", tokenArray[counter2]); */
 			counter2++;
 		}
 		concatArray[0] = malloc(strlen(tokenPath[0]) + 1 + strlen("/") + strlen(tokenArray[0]) + 1);
 		strcpy(concatArray[0], tokenPath[0]);
 		strcat(concatArray[0], "/");
 		strcat(concatArray[0], tokenArray[0]);
-		printf("concatArray: %s\n", concatArray[0]);
-		/* printf("tokenArray: %s\n", tokenArray[0]);
-		printf("tokenPath: %s\n", tokenPath[0]); */
 		if (access(tokenPath[0], X_OK) == 0)
 		{
-			printf("This is working\n");
+			/* printf("This is working\n"); */
 			execute(concatArray, tokenArray);
-			printf("This executed\n");
+			/* printf("This executed\n"); */
 		}
 		else
 			continue;
