@@ -15,5 +15,6 @@
 extern char **environ;
 
 int main(int argc, char **argv);
+int execute(char *pathStr, char **arrayStr);
 
 #endif
