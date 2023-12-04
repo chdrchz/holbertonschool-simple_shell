@@ -1,15 +1,17 @@
 #include "main.h"
 
-int execute(char *pathStr, char **arrayStr)
+int execute(char **arrayStr, char **cmdStr)
 {
 	pid_t pid;
 	int status = 0;
+
+	printf("arrayStr: %s\n", arrayStr[0]);
 
 	pid = fork();
 
 	if (pid == 0)
 	{
-		if (execve(pathStr, arrayStr, NULL) == -1)
+		if (execve(arrayStr[0], cmdStr, environ) == -1)
 		{
 			printf("execve failure\n");
 			exit(EXIT_FAILURE);
