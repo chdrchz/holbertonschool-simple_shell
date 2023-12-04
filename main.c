@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 		if (access(tokenPath[0], X_OK) == 0)
 		{
 			/* printf("This is working\n"); */
-			execute(concatArray, tokenArray);
+			execute(concatArray[0], tokenArray);
 			/* printf("This executed\n"); */
 		}
 		else

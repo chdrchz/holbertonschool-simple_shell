@@ -1,15 +1,21 @@
 #include "main.h"
 
-int execute(char *arrayStr, char **cmdStr)
+void execute(char *commandPath, char *args[])
 {
 	pid_t pid;
-	int status = 0;
-
+	int status = 0, i = 0;
+	
+	printf("commandPath: %s\n", commandPath);
+	while (args[i] != NULL)
+	{
+		printf("args[]: %s\n", args[i]);
+		i++;
+	}
 	pid = fork();
 
 	if (pid == 0)
 	{
-		if (execve(arrayStr, cmdStr, environ) == -1)
+		if (execve(commandPath, args, environ) == -1)
 		{
 			printf("execve failure\n");
 			exit(EXIT_FAILURE);
@@ -23,5 +29,4 @@ int execute(char *arrayStr, char **cmdStr)
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	return (status);
 }

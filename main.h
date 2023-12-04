@@ -15,6 +15,6 @@
 extern char **environ;
 
 int main(int argc, char **argv);
-int execute(char *arrayStr, char **cmdStr);
+void execute(char *commandPath, char *args[]);
 
 #endif
