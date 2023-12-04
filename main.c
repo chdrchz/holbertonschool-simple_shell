@@ -38,17 +38,16 @@ int main(int argc, char **argv)
 			token = strtok(NULL, ":");
 			counter++;
 		}
-
 		token = strtok(input, " ");
 		counter2 = 0;
-
 		while (token != NULL)
 		{
 			tokenArray[counter2] = strdup(token);
 			token = strtok(NULL, " ");
 			counter2++;
 		}
-
+		printf("tokenArray: %s\n", tokenArray[0]);
+		printf("tokenPath: %s\n", tokenPath[0]);
 		if (access(tokenPath[0], X_OK) == 0)
 		{
 			printf("This is working\n");
@@ -57,13 +56,11 @@ int main(int argc, char **argv)
 		}
 		else
 			continue;
-        	
 		for (j = 0; j < counter2; j++)
 		{
 			/* printf("%s", tokenArray[j]); */
 			free(tokenArray[j]);
 		}
-
 		for (j = 0; j < counter; j++)
         	{
             		/* printf("%s\n", tokenPath[j]); */
