@@ -11,12 +11,14 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <stddef.h>
+#include <stdio.h>
 
 extern char **environ;
 
 int main(int argc, char **argv);
-int execute(char *path, char *getPath, char **strArray);
 void tokenize_string(char *str, char *delims, char **tokens);
-int find_path(char *path, char **pathArray, char **tokenArray);
+int execute(char *stdpath, char *call_path, char **str_arr);
+int check_path(char *path, char **pathArray, char **tokenArray);
 
 #endif

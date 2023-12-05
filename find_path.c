@@ -1,24 +1,24 @@
 #include "main.h"
 
-int find_path(char *path, char **pathArray, char **tokenArray)
+int check_path(char *path, char **pathArray, char **tokenArray)
 {
-	char *cmdPath = NULL;
 	int i = 0;
-	struct stat j;
-	
+	char *comp_path = NULL;
+	struct stat x;
+
 	while (pathArray[i] != NULL)
 	{
-		cmdPath = malloc(strlen(tokenArray[0]) + strlen(pathArray[i]) + 2);
-		strcpy(cmdPath, pathArray[i]);
-		strcat(cmdPath, "/");
-		strcat(cmdPath, tokenArray[0]);
-		if (stat(cmdPath, &j) == 0)
+		comp_path = malloc(strlen(tokenArray[0]) + strlen(pathArray[i]) + 2);
+		strcpy(comp_path, pathArray[i]);
+		strcat(comp_path, "/");
+		strcat(comp_path, tokenArray[0]);
+		if (stat(comp_path, &x) == 0)
 		{
-			execute(path, cmdPath, tokenArray);
-			free(cmdPath);
+			execute(path, comp_path, tokenArray);
+			free(comp_path);
 			return (0);
 		}
-		free(cmdPath);
+		free(comp_path);
 		i++;
 	}
 	return (127);
