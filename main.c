@@ -4,7 +4,7 @@ int main(int argc, char **argv)
 {
 	char *path = NULL, *input = NULL, *pathCopy = NULL;
 	char *tokenArray[20], *pathArray[20];
-	size_t bufferSize;
+	size_t bufferSize, inputLength;
 	int executeValue = 0, i = 0;
 	
 	(void)argc; (void)argv;
@@ -32,8 +32,10 @@ int main(int argc, char **argv)
 			free(pathCopy);
 			exit(EXIT_SUCCESS);
 		}
+		inputLength = strlen(input);
+		if (inputLength > 0 && input[inputLength - 1] == '\n')
+			input[inputLength - 1] = '\0';
                 tokenize_string(input, " \n\t", tokenArray);
-
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(pathCopy, tokenArray[0], tokenArray);
 		else
