@@ -25,15 +25,18 @@ int main(int argc, char **argv)
 			continue;
 		}
 		if (strcmp(tokenArray[0], "exit") == 0)
-		{
-			free(input);
-			free(path);
-			exit(EXIT_SUCCESS);
-		}
+			handle_exit(input, path);
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			returnValue = check_path(path, pathArray, tokenArray);
 	}
 	return (returnValue);
+}
+
+void handle_exit(char *input, char *path)
+{
+	free(input);
+	free(path);
+	exit(EXIT_SUCCESS);
 }
