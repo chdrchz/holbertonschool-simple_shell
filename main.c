@@ -35,6 +35,8 @@ int main(int argc, char **argv)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			returnValue = check_path(path, pathArray, tokenArray);
+		if (returnValue != 0)
+			handle_exit(input, path);
 	}
 	return (returnValue);
 }
