@@ -10,18 +10,19 @@ int main(int argc, char **argv)
 	
 	(void)argc; (void)argv;
 
-	while (environ[i] != NULL)
-	{
-		if (strncmp(environ[i], "PATH=", 5) == 0)
-		{
-			path = strdup(environ[i] + 5);
-			pathCopy = strdup(path);
-			break;
-		}
-		i++;
-	}
 	while (1)
 	{		
+		
+		while (environ[i] != NULL)
+        	{
+                	if (strncmp(environ[i], "PATH=", 5) == 0)
+                	{
+                        	path = strdup(environ[i] + 5);
+                        	pathCopy = strdup(path);
+                        	break;
+                	}	
+                		i++;
+        	}
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "Shell $ ", 8);
 		if (getline(&input, &bufferSize, stdin) == -1)
@@ -44,15 +45,14 @@ int main(int argc, char **argv)
                 }
                 tokenArray[counter2] = NULL;
 		tokenize_path(pathCopy, pathArray, &pathCount);
+		token = strtok(pathCopy, ":");
 		counter = 0;
 		for (k = 0; k < pathCount; k++)
 		{
 			commandPath = malloc(strlen(pathArray[k]) + 1 + strlen("/") + strlen(input) + 1);
-			printf("pathArray: %s\n", pathArray[k]);
             		strcpy(commandPath, pathArray[k]);
             		strcat(commandPath, "/");
             		strcat(commandPath, tokenArray[0]);
-			printf("commandPath: %s\n", commandPath);
 			if (commandPath != NULL && access(commandPath, X_OK) == 0)
 			{
    				tokenArray[0] = commandPath;
