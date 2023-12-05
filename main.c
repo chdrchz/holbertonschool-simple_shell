@@ -46,17 +46,6 @@ int main(int argc, char **argv)
                         free(path);
                         exit(EXIT_SUCCESS);
                 }
-                /* if (strcmp(tokenArray[0], "env") == 0)
-                {
-                        for (i = 0 ; env[i] != NULL ; i++)
-                        {
-                                write(STDOUT_FILENO, env[i], _strlen(env[i]));
-                                write(STDOUT_FILENO, "\n", 1);
-                        }
-                        free(path);
-                        continue;
-                } */
-
                 if (access(tokenArray[0], X_OK) == 0)
                         execute(path, tokenArray[0], tokenArray);
                 else
