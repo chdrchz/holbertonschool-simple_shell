@@ -20,5 +20,6 @@ int main(int argc, char **argv);
 void tokenize_string(char *str, char *delims, char **tokens);
 int execute(char *stdpath, char *call_path, char **str_arr);
 int check_path(char *path, char **pathArray, char **tokenArray);
+char *get_environ(char **environ);
 
 #endif
