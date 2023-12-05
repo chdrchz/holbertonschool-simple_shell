@@ -25,7 +25,12 @@ int main(int argc, char **argv)
 			continue;
 		}
 		if (strcmp(tokenArray[0], "exit") == 0)
-			handle_exit(input, path);
+		{
+			if (tokenArray[1] == NULL)
+				handle_exit(input, path);
+			else
+				handle_exit(input, path);
+		}
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
