@@ -2,14 +2,14 @@
 
 void tokenize_string(char *str, char *delims, char **tokens)
 {
-	char *pathToken = strtok(str, delims);
+	char *path_token = strtok(str, delims);
 	int i = 0;
 
-	while (pathToken != NULL)
+	while (path_token != NULL)
 	{
-		tokens[i] = pathToken;
+		tokens[i] = path_token;
 		i++;
-		pathToken = strtok(NULL, delims);
+		path_token = strtok(NULL, delims);
 	}
 	tokens[i] = NULL;
 }
