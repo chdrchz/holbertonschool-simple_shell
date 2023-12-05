@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 
 	while (1)
 	{		
-		
+		i = 0;
 		while (environ[i] != NULL)
         	{
                 	if (strncmp(environ[i], "PATH=", 5) == 0)
@@ -23,6 +23,12 @@ int main(int argc, char **argv)
                 	i++;
         	}
 		tokenize_string(pathCopy, ":", pathArray);
+		/*printf("pathCopy->%s\n", pathCopy);
+		while (pathArray != NULL)
+		{
+			printf("pathArray->%s\n", pathArray[i]);
+			i++;
+		}*/
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "Shell $ ", 8);
 		if (getline(&input, &bufferSize, stdin) == -1)
