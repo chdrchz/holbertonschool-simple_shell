@@ -3,21 +3,14 @@
 void execute(char *commandPath, char *args[])
 {
 	pid_t pid;
-	int status = 0, i = 0;
-	
-	printf("commandPath: %s\n", commandPath);
-	while (args[i] != NULL)
-	{
-		printf("args[]: %s\n", args[i]);
-		i++;
-	}
+	int status = 0;
 	pid = fork();
 
 	if (pid == 0)
 	{
 		if (execve(commandPath, args, environ) == -1)
 		{
-			printf("execve failure\n");
+			perror("execve");
 			exit(EXIT_FAILURE);
 		}
 	}

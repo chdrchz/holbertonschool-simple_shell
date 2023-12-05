@@ -2,9 +2,9 @@
 
 int main(int argc, char **argv)
 {
-	char *path = NULL, *input = NULL, *pathCopy = NULL, *token = NULL;
-	char *tokenPath[20], *tokenArray[20], *concatArray[20];
-	size_t bufferSize;
+	char *path = NULL, *input = NULL, *pathCopy = NULL, *token = NULL, *commandPath = NULL;
+	char *tokenPath[20], *tokenArray[20];
+	size_t bufferSize, length;
 	int counter = 0, counter2 = 0;
 	int i = 0, j = 0;
 	
@@ -31,11 +31,35 @@ int main(int argc, char **argv)
 			free(pathCopy);
 			exit(EXIT_SUCCESS);
 		}
+
+		length = strlen(input);
+        	if (length > 0 && input[length - 1] == '\n')
+            		input[length - 1] = '\0';
                 token = strtok(pathCopy, ":");
 		counter = 0;
 		while (token != NULL)
 		{
-			tokenPath[counter] = strdup(token);
+			commandPath = malloc(strlen(token) + 1 + strlen("/") + strlen(input) + 1);
+            		strcpy(commandPath, token);
+            		strcat(commandPath, "/");
+            		strcat(commandPath, input);
+			if (access(commandPath, X_OK) == 0)
+			{
+				if (commandPath != NULL)
+				{
+					tokenArray[0] = commandPath;
+   					tokenArray[1] = NULL;
+   					execute(commandPath, tokenArray);
+   					free(commandPath);
+   					commandPath = NULL;	
+					break;
+				}
+			}
+            		else
+			{
+                		perror("access");
+                		free(commandPath);
+			}
 			token = strtok(NULL, ":");
 			counter++;
 		}
@@ -45,32 +69,17 @@ int main(int argc, char **argv)
 		{
 			tokenArray[counter2] = strdup(token);
 			token = strtok(NULL, " ");
-			/* printf("Input: %s\n", tokenArray[counter2]); */
 			counter2++;
 		}
-		concatArray[0] = malloc(strlen(tokenPath[0]) + 1 + strlen("/") + strlen(tokenArray[0]) + 1);
-		strcpy(concatArray[0], tokenPath[0]);
-		strcat(concatArray[0], "/");
-		strcat(concatArray[0], tokenArray[0]);
-		if (access(tokenPath[0], X_OK) == 0)
-		{
-			/* printf("This is working\n"); */
-			execute(concatArray[0], tokenArray);
-			/* printf("This executed\n"); */
-		}
-		else
-			continue;
+		tokenArray[counter2] = NULL;
 		for (j = 0; j < counter2; j++)
 		{
-			/* printf("%s", tokenArray[j]); */
 			free(tokenArray[j]);
 		}
 		for (j = 0; j < counter; j++)
         	{
-            		/* printf("%s\n", tokenPath[j]); */
             		free(tokenPath[j]);
         	}
-		free(concatArray[0]);
 	}
 	free(path);
 	return (0);
