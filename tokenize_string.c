@@ -8,8 +8,8 @@ void tokenize_string(char *str, char *delims, char **tokens)
 	while (pathToken != NULL)
 	{
 		tokens[i] = pathToken;
-		i++;
 		pathToken = strtok(NULL, delims);
+		i++;
 	}
 	tokens[i] = NULL;
 }
