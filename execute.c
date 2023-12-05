@@ -3,10 +3,7 @@
 void execute(char *commandPath, char *args[])
 {
 	pid_t pid;
-	int status = 0, i = 0;
-	args[i] = NULL;
-	
-	printf("commandPath: %s\n", commandPath);
+	int status = 0;
 	pid = fork();
 
 	if (pid == 0)

@@ -45,12 +45,15 @@ int main(int argc, char **argv)
             		strcat(commandPath, input);
 			if (access(commandPath, X_OK) == 0)
 			{
-				tokenArray[0] = commandPath;
-				tokenArray[1] = NULL;
-				execute(commandPath, tokenArray);
-                		free(commandPath);
-				commandPath = NULL;
-                		break;
+				if (commandPath != NULL)
+				{
+					tokenArray[0] = commandPath;
+   					tokenArray[1] = NULL;
+   					execute(commandPath, tokenArray);
+   					free(commandPath);
+   					commandPath = NULL;	
+					break;
+				}
 			}
             		else
 			{
