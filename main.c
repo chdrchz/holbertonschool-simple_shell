@@ -27,7 +27,6 @@ int main(int argc, char **argv)
 			write(STDOUT_FILENO, "Shell $ ", 8);
 		if (getline(&input, &bufferSize, stdin) == -1)
 		{
-			printf("This is a test for the checker\n");
 			free(input);
 			free(pathCopy);
 			exit(EXIT_SUCCESS);
