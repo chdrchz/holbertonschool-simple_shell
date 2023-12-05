@@ -1,23 +1,18 @@
 #include "main.h"
 
-void execute(char *commandPath, char *args[])
+int execute(char *path, char *getPath, char **strArray)
 {
-	pid_t pid;
-	int status = 0, i = 0;
-	
-	printf("commandPath: %s\n", commandPath);
-	while (args[i] != NULL)
-	{
-		printf("args[]: %s\n", args[i]);
-		i++;
-	}
+	pid_t pid, signal;
+	int status = 0;
+
+	free(path);
 	pid = fork();
 
 	if (pid == 0)
 	{
-		if (execve(commandPath, args, environ) == -1)
+		if (execve(getPath, strArray, environ) == -1)
 		{
-			printf("execve failure\n");
+			perror("execve");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -26,7 +21,9 @@ void execute(char *commandPath, char *args[])
 	else
 	{
 		do {
-			waitpid(pid, &status, WUNTRACED);
+			signal = waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
+	(void)signal;
+	return (status);
 }
