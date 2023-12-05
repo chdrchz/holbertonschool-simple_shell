@@ -16,5 +16,6 @@ extern char **environ;
 
 int main(int argc, char **argv);
 void execute(char *commandPath, char *args[]);
+void tokenize_path(char *path, char *pathArray[], int *pathCount);
 
 #endif
