@@ -18,7 +18,7 @@ int check_path(char *path, char **pathArray, char **tokenArray)
 			free(comp_path);
 			return (0);
 		}
-		else if
+		else if (stat(comp_path, &x) == -1)
 			exit (127);
 		free(comp_path);
 		i++;
