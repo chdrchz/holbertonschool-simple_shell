@@ -31,16 +31,12 @@ int main(int argc, char **argv)
 			continue;
 		}
 		if (access(tokenArray[0], X_OK) == 0)
-			status = execute(path, tokenArray[0], tokenArray);
+			execute(path, tokenArray[0], tokenArray);
 		else
 		{
 			status = check_path(path, pathArray, tokenArray);
-			if (status == 127)
-			{
-				if (tokenArray[1] == NULL)
-					two_exit(input, path, 2);
+			if (status == 2)
 				two_exit(input, path, 2);
-			}
 		}
 	}
 	return (status);

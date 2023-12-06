@@ -21,5 +21,5 @@ int check_path(char *path, char **pathArray, char **tokenArray)
 		free(comp_path);
 		i++;
 	}
-	return (127);
+	return (2);
 }
