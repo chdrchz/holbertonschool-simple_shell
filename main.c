@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-	char *input = NULL, *path = NULL, *tokenArray[20], *pathArray[20], *lsArgs[] = {"/bin/ls", NULL};
+	char *input = NULL, *path = NULL, *tokenArray[20], *pathArray[20];
 	size_t size = 0;
 	int status = 0;
 	(void)argc; (void)argv;
@@ -33,11 +33,7 @@ int main(int argc, char **argv)
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
-		{
 			status = check_path(path, pathArray, tokenArray);
-			if (status == 2)
-				two_exit(input, path, 2);
-		}
 	}
 	return (status);
 }
