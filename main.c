@@ -45,6 +45,7 @@ void one_exit(char *input, char *path)
 {
 	free(input);
 	free(path);
+	exit(EXIT_SUCCESS);
 }
 void two_exit(char *input, char *path, int exitStatus)
 {
