@@ -27,21 +27,27 @@ int main(int argc, char **argv)
 		if (strcmp(tokenArray[0], "exit") == 0)
 		{
 			if (tokenArray[1] == NULL)
-				handle_exit(input, path, 1);
+				handle_exit(input, path);
 			else
-				handle_exit(input, path, 1);
+				handle_exit(input, path);
 		}
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			returnValue = check_path(path, pathArray, tokenArray);
 		if (returnValue != 0)
-			handle_exit(input, path, 2);
+			handle_exit_status(input, path, 2);
 	}
 	return (returnValue);
 }
 
 void handle_exit(char *input, char *path, int exitStatus)
+{
+	free(input);
+	free(path);
+	exit(exitStatus);
+}
+void handle_exit_status(char *input, char *path, int exitStatus)
 {
 	free(input);
 	free(path);
