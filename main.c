@@ -28,12 +28,12 @@ int main(int argc, char **argv)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			status = check_path(path, pathArray, tokenArray);
+		if (status != 0)
+			two_exit(input, path, 2);
 		if (strcmp(tokenArray[0], "exit") == 0)
                 {
                         if (tokenArray[1] == NULL)
                                 one_exit(input, path);
-                        if (status != 0)
-                                two_exit(input, path, 2);
                         one_exit(input, path);
                 }
 	}
