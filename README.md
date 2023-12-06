@@ -9,6 +9,18 @@ Hello and welcome to Savanna and Taylor's simple shell project. We are from Coho
  - [README Editor](https://readme.so/editor)
 
 
+## Getting Started
+
+To get start first clone into the repository
+
+```bash
+git clone https://github.com/chdrchz/holbertonschool-simple_shell.git
+```
+Then compile the program using the GCC compiler command
+```bash
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```
+Then intialize the program as shown in screenshot.
 ## Screenshots
 
 ![Intializing shell](https://i.imgur.com/MFTec9m.png)
@@ -20,5 +32,6 @@ Hello and welcome to Savanna and Taylor's simple shell project. We are from Coho
 
 ## Authors
 
-- [@octokatherine](https://www.github.com/octokatherine)
+- [@Savanna Davis](https://github.com/chdrchz)
 
+- [@Taylor Green](https://github.com/Greentaylor27)
