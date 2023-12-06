@@ -1,11 +1,19 @@
 #include "main.h"
+/**
+ * main - infinite loop, and placeholder for frees and executions
+ *
+ * @argc: argument count (void)
+ * @argv: arguments (void)
+ * Return: exit status (should be 0)
+*/
 
 int main(int argc, char **argv)
 {
 	char *input = NULL, *path = NULL, *tokenArray[20], *pathArray[20];
 	size_t size = 0;
 	int status = 0;
-	(void)argc; (void)argv;
+	(void)argc;
+	(void)argv;
 	while (1)
 	{
 		path = get_environ(environ);
@@ -29,26 +37,25 @@ int main(int argc, char **argv)
 		else
 			status = check_path(path, pathArray, tokenArray);
 		if (strcmp(tokenArray[0], "exit") == 0)
-                {
-                        if (tokenArray[1] == NULL)
-                                one_exit(input, path);
-                        if (status != 0)
-                                two_exit(input, path, 2);
-                        one_exit(input, path);
-                }
+		{
+			if (tokenArray[1] == NULL)
+				one_exit(input, path);
+		}
 	}
 	return (status);
 }
+
+/**
+ * one_exit - function to handle the freeing and exiting
+ *
+ * @input: input from getline (to free)
+ * @path: path to executable (to free)
+ * Return: void
+*/
 
 void one_exit(char *input, char *path)
 {
 	free(input);
 	free(path);
 	exit(EXIT_SUCCESS);
-} 
-void two_exit(char *input, char *path, int exitStatus)
-{
-	free(input);
-	free(path);
-	exit(exitStatus);
 }

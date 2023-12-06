@@ -1,5 +1,17 @@
 #include "main.h"
-
+/**
+ * execute - forks, executes and waits
+ *
+ * @path: original path to executable
+ * @getPath: path including command
+ * @strArray: arguments
+ * Return: status of child process execution
+ * On success: 0
+ * On failure:
+ * 2 - misuse of shell builtins
+ * 126 - command not executable
+ * 127 - command not found
+*/
 int execute(char *path, char *getPath, char **strArray)
 {
 	pid_t pid, signal;
