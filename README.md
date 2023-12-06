@@ -9,6 +9,9 @@ Hello and welcome to Savanna and Taylor's simple shell project. We are from Coho
  - [README Editor](https://readme.so/editor)
 
 
+## Flowchart
+
+![Basic flowchart](https://i.imgur.com/DUB7PWv.png)
 ## Getting Started
 
 To get start first clone into the repository
