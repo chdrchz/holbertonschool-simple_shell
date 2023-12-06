@@ -19,12 +19,6 @@ int main(int argc, char **argv)
 		}
 		tokenize_string(path, ":", pathArray);
 		tokenize_string(input, " \n\t", tokenArray);
-		if (strcmp(tokenArray[0], "exit") == 0)
-		{
-			if (tokenArray[1] == NULL)
-				two_exit(input, path, 0);
-			two_exit(input, path, 0);
-		}
 		if (!tokenArray[0])
 		{
 			free(path);
@@ -34,16 +28,24 @@ int main(int argc, char **argv)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			status = check_path(path, pathArray, tokenArray);
+		if (strcmp(tokenArray[0], "exit") == 0)
+                {
+                        if (tokenArray[1] == NULL)
+                                one_exit(input, path);
+                        if (status != 0)
+                                two_exit(input, path, 2);
+                        one_exit(input, path);
+                }
 	}
 	return (status);
 }
 
-/* void one_exit(char *input, char *path)
+void one_exit(char *input, char *path)
 {
 	free(input);
 	free(path);
 	exit(EXIT_SUCCESS);
-} */
+} 
 void two_exit(char *input, char *path, int exitStatus)
 {
 	free(input);
