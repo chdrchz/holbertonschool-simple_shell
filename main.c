@@ -27,13 +27,12 @@ int main(int argc, char **argv)
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
+		{
+			perror("access");
+			two_exit(input, path, 2);
+		}
+		if (access(tokenArray[0], X_OK) != 0)
 			status = check_path(path, pathArray, tokenArray);
-		if (access(tokenArray[0], X_OK) == -1)
-                {
-                        if (tokenArray[1] == NULL)
-                                two_exit(input, path, 2);
-                        two_exit(input, path, 2);
-                }
 		if (strcmp(tokenArray[0], "exit") == 0)
                 {
                         if (tokenArray[1] == NULL)
