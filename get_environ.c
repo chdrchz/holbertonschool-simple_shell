@@ -1,5 +1,10 @@
 #include "main.h"
-
+/**
+ * *get_environ - gets the environment variable, excluding "PATH="
+ *
+ * @environ: environment variable, globally declared in main.h
+ * Return: path, excluding "PATH="
+*/
 char *get_environ(char **environ)
 {
 	int i = 0;
@@ -19,5 +24,5 @@ char *get_environ(char **environ)
 		}
 		i++;
 	}
-	return(path);
+	return (path);
 }

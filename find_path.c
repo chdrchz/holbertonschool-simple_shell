@@ -1,5 +1,13 @@
 #include "main.h"
-
+/**
+ * check_path - if cannot execute (ie: /bin/ls) find path and execute
+ *
+ * @path: path to executable (only in prototype to pass to execute)
+ * @pathArray: tokenized path
+ * @tokenArray: tokenized input
+ * Return: On success: 0
+ * On failure: 127 - command not found
+*/
 int check_path(char *path, char **pathArray, char **tokenArray)
 {
 	int i = 0;
@@ -21,5 +29,5 @@ int check_path(char *path, char **pathArray, char **tokenArray)
 		free(comp_path);
 		i++;
 	}
-	return (2);
+	return (127);
 }
