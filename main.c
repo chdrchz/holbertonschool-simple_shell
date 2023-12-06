@@ -19,6 +19,12 @@ int main(int argc, char **argv)
 		}
 		tokenize_string(path, ":", pathArray);
 		tokenize_string(input, " \n\t", tokenArray);
+		if (strcmp(tokenArray[0], "exit") == 0)
+		{
+			if (tokenArray[1] == NULL)
+				two_exit(input, path, 0);
+			two_exit(input, path, 0);
+		}
 		if (!tokenArray[0])
 		{
 			free(path);
@@ -27,15 +33,15 @@ int main(int argc, char **argv)
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
+		{
 			status = check_path(path, pathArray, tokenArray);
-		if (status == 127)
-			two_exit(input, path, 2);
-		if (strcmp(tokenArray[0], "exit") == 0)
-                {
-                        if (tokenArray[1] == NULL)
-                                two_exit(input, path, 0);
-                        two_exit(input, path, 0);
-                }
+			if (status == 127)
+			{
+				if (tokenArray[1] == NULL)
+					two_exit(input, path, 2);
+				two_exit(input, path, 2);
+			}
+		}
 	}
 	return (status);
 }
