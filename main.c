@@ -35,8 +35,13 @@ int main(int argc, char **argv)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			status = check_path(path, pathArray, tokenArray);
-		if (status != 0)
-			two_exit(input, path, 2);
+		if (status != 0) /*note: this status should be 127 from check_path - cmd not found*/
+		{
+			if (tokenArray[1] == NULL)
+				two_exit(input, path, 2);
+			else
+				two_exit(input, path, 2);
+		}
 	}
 	return (status);
 }
