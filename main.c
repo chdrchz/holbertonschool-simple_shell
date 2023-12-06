@@ -33,19 +33,19 @@ int main(int argc, char **argv)
 		if (strcmp(tokenArray[0], "exit") == 0)
                 {
                         if (tokenArray[1] == NULL)
-                                one_exit(input, path);
-                        one_exit(input, path);
+                                two_exit(input, path, 0);
+                        two_exit(input, path, 0);
                 }
 	}
 	return (status);
 }
 
-void one_exit(char *input, char *path)
+/* void one_exit(char *input, char *path)
 {
 	free(input);
 	free(path);
 	exit(EXIT_SUCCESS);
-}
+} */
 void two_exit(char *input, char *path, int exitStatus)
 {
 	free(input);
