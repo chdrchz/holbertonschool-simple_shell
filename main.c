@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		if (access(tokenArray[0], X_OK) == 0)
-			execute(path, tokenArray[0], tokenArray);
+			status = execute(path, tokenArray[0], tokenArray);
 		else
 		{
 			status = check_path(path, pathArray, tokenArray);
