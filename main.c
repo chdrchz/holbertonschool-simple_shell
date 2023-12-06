@@ -24,23 +24,21 @@ int main(int argc, char **argv)
 			free(path);
 			continue;
 		}
-		if (strcmp(tokenArray[0], "exit") == 0)
-		{
-			if (tokenArray[1] == NULL)
-				one_exit(input, path);
-			else
-				one_exit(input, path);
-		}
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			status = check_path(path, pathArray, tokenArray);
-		if (status != 0) /*note: this status should be 127 from check_path - cmd not found*/
+		if (strcmp(tokenArray[0], "exit") == 0)
+                {
+                        if (tokenArray[1] == NULL)
+                                one_exit(input, path);
+			one_exit(input, path);
+                }
+		if (status != 0)
 		{
 			if (tokenArray[1] == NULL)
 				two_exit(input, path, 2);
-			else
-				two_exit(input, path, 2);
+			two_exit(input, path, 2);
 		}
 	}
 	return (status);
