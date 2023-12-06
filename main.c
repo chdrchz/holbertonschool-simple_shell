@@ -4,7 +4,7 @@ int main(int argc, char **argv)
 {
 	char *input = NULL, *path = NULL, *tokenArray[20], *pathArray[20], *lsArgs[] = {"/bin/ls", NULL};
 	size_t size = 0;
-	int status = 0, executeNoPath = 0;
+	int status = 0;
 	(void)argc; (void)argv;
 	while (1)
 	{
@@ -30,14 +30,6 @@ int main(int argc, char **argv)
 			free(path);
 			continue;
 		}
-		if (executeNoPath)
-		{
-			remove_path_env(environ);
-			status = execve("/bin/ls", lsArgs, environ);
-			if (status == -1)
-				exit(EXIT_FAILURE);
-		}
-		executeNoPath = 0;
 		if (access(tokenArray[0], X_OK) == 0)
 			execute(path, tokenArray[0], tokenArray);
 		else
