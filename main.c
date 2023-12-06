@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			status = check_path(path, pathArray, tokenArray);
-		if (status != 0)
+		if (status == 127)
 			two_exit(input, path, 2);
 		if (strcmp(tokenArray[0], "exit") == 0)
                 {
