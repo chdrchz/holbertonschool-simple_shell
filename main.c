@@ -28,18 +28,18 @@ int main(int argc, char **argv)
 			execute(path, tokenArray[0], tokenArray);
 		else
 			status = check_path(path, pathArray, tokenArray);
+		if (access(tokenArray[0], X_OK) == -1)
+                {
+                        if (tokenArray[1] == NULL)
+                                two_exit(input, path, 2);
+                        two_exit(input, path, 2);
+                }
 		if (strcmp(tokenArray[0], "exit") == 0)
                 {
                         if (tokenArray[1] == NULL)
                                 one_exit(input, path);
 			one_exit(input, path);
                 }
-		/* if (status != 0)
-		{
-			if (tokenArray[1] == NULL)
-				two_exit(input, path, 2);
-			two_exit(input, path, 2);
-		} */
 	}
 	return (status);
 }
@@ -50,9 +50,9 @@ void one_exit(char *input, char *path)
 	free(path);
 	exit(EXIT_SUCCESS);
 }
-/* void two_exit(char *input, char *path, int exitStatus)
+void two_exit(char *input, char *path, int exitStatus)
 {
 	free(input);
 	free(path);
 	exit(exitStatus);
-} */
+}
