@@ -22,6 +22,6 @@ int execute(char *stdpath, char *call_path, char **str_arr);
 int check_path(char *path, char **pathArray, char **tokenArray);
 char *get_environ(char **environ);
 void one_exit(char *input, char *path);
-void two_exit(char *input, char *path, int exitStatus);
+/* void two_exit(char *input, char *path, int exitStatus); */
 
 #endif

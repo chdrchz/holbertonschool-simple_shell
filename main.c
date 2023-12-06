@@ -34,12 +34,12 @@ int main(int argc, char **argv)
                                 one_exit(input, path);
 			one_exit(input, path);
                 }
-		if (status != 0)
+		/* if (status != 0)
 		{
 			if (tokenArray[1] == NULL)
 				two_exit(input, path, 2);
 			two_exit(input, path, 2);
-		}
+		} */
 	}
 	return (status);
 }
@@ -50,9 +50,9 @@ void one_exit(char *input, char *path)
 	free(path);
 	exit(EXIT_SUCCESS);
 }
-void two_exit(char *input, char *path, int exitStatus)
+/* void two_exit(char *input, char *path, int exitStatus)
 {
 	free(input);
 	free(path);
 	exit(exitStatus);
-}
+} */
